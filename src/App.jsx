@@ -1,16 +1,25 @@
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Header from './components/header'
 import ProductCard from './components/productCard'
+import HomePage from './pages/home'
+import LoginPage from './pages/login'
+import SignUpPage from './pages/signup'
 
-function App() {
+function App() { //full app ------> App()
 
   return (
-    <>
-      <Header/>
-      <ProductCard name="Apple Laptop" description = "agsg euheu bsshbch qwer" price="1000/=" picture="https://picsum.photos/id/2/200/300"/>
-      <ProductCard name="Gaming Laptop" description = "agsg euheu bsshbch qwer" price="1000/=" picture="https://picsum.photos/id/2/200/300"/>
-    </>
+    <BrowserRouter>
+      <div>
+        <Header />
+        <Routes path="/*">
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   )
 }
-
+ 
 export default App
