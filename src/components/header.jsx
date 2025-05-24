@@ -1,12 +1,14 @@
 import UserData from "./userData";
+import { Link } from "react-router-dom";
 
 export default function Header(){
     console.log("Header component loading....")
     return(
         <div className="bg-[#FFFF00]">
-            <h1 className="font-bold text-[30px] text-blue-700">Crystal Beauty Clear</h1>  
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis libero voluptatibus velit amet nisi nihil provident nulla, nostrum praesentium, dolores iure ducimus odit esse ex veniam aliquid magnam placeat iste.</p>
-            <UserData></UserData>
+            <Link to="/">Home</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/signup">Sign Up</Link>
+            <a href="https://www.google.com">Google</a>
         </div>
     )
 }
