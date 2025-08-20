@@ -18,8 +18,26 @@ export default function LoginPage(){
 
         <div className="w-[50%] h-full flex justify-center items-center">
           <div className="w-[500px] h-[600px] backdrop-blur-md rounded-[20px] shadow-xl flex flex-col justify-center items-center">
-            <input className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] my-[20px]"/>
-            <input type="password" className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] mb-[20px]"/>
+            <input 
+
+              onChange = {
+                (e)=>{
+                  setEmail(e.target.value); //to update email state with the value of input field
+                  //console.log(e.target.value);//to print changes in email evry time (wensa karna hama welawkm karpu wenaskm console eke penwa)
+                  //console.log("email has been changes");//to go farward with updated email
+                }
+              }
+
+            className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] my-[20px]"/>
+            <input
+
+              onChange={
+                (e)=>{
+                  setPassword(e.target.value); //to update password state with the value of input field
+                }
+              }
+              
+            type="password" className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] mb-[20px]"/>
             <button onClick={handleLogin} className="w-[300px] cursor-pointer h-[50px] bg-[#c3efe9] rounded-[20px] font-bold text-white my-[20px]">Login</button>
           </div>
         </div>
