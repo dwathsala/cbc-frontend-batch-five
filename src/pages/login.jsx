@@ -1,13 +1,31 @@
+import axios from 'axios';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function LoginPage(){
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleLogin() { // http request going to backend with email and password
-    console.log(email)
-    console.log(password)
+  async function handleLogin() { // http request going to backend with email and password
+    //console.log(email)
+    //console.log(password)
+
+    try{
+      const response = await axios.post("http://localhost:5000/api/users/login", {
+        email: email,
+        password: password
+      })
+      //alert("Login Successful");
+      toast.success("Login Successful");
+      console.log(response.data);
+ 
+
+    }catch(e){
+      //alert(e.response.data.message);  //we can use alert instead of console.log
+      toast.error(e.response.data.message);
+    }
+
   }
 
     return(
@@ -28,6 +46,8 @@ export default function LoginPage(){
                 }
               }
 
+              value={email}
+
             className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] my-[20px]"/>
             <input
 
@@ -36,7 +56,9 @@ export default function LoginPage(){
                   setPassword(e.target.value); //to update password state with the value of input field
                 }
               }
-              
+
+              value={password}
+
             type="password" className="w-[300px] h-[50px] border border-[#c3efe9] rounded-[20px] mb-[20px]"/>
             <button onClick={handleLogin} className="w-[300px] cursor-pointer h-[50px] bg-[#c3efe9] rounded-[20px] font-bold text-white my-[20px]">Login</button>
           </div>
