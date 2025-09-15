@@ -21,8 +21,13 @@ export default function LoginPage(){
       console.log(response.data);
       localStorage.setItem("token", response.data.token); //store token in local storage
       //const token = localStorage.getItem("token");   //to get token from local storage
+      if(response.data.user.role === "admin"){
+        window.location.href = "/admin";  //redirect to admin page
+      }else{
+        window.location.href = "/home";  //redirect to home page
+      }
 
-       window.location.href = "/admin"; //redirect to home page after login
+        
 
     }catch(e){
       //alert(e.response.data.message);  //we can use alert instead of console.log
