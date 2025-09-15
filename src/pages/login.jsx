@@ -19,7 +19,10 @@ export default function LoginPage(){
       //alert("Login Successful");
       toast.success("Login Successful");
       console.log(response.data);
- 
+      localStorage.setItem("token", response.data.token); //store token in local storage
+      //const token = localStorage.getItem("token");   //to get token from local storage
+
+       
 
     }catch(e){
       //alert(e.response.data.message);  //we can use alert instead of console.log
