@@ -1,11 +1,13 @@
 import axios from 'axios';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage(){
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate =  useNavigate()
 
   async function handleLogin() { // http request going to backend with email and password
     //console.log(email)
@@ -21,10 +23,13 @@ export default function LoginPage(){
       console.log(response.data);
       localStorage.setItem("token", response.data.token); //store token in local storage
       //const token = localStorage.getItem("token");   //to get token from local storage
-      if(response.data.user.role === "admin"){
-        window.location.href = "/admin";  //redirect to admin page
+
+
+      if(response.data.role === "admin"){
+        //window.location.href = "/admin";  //redirect to admin page,outdated one
+        navigate("/admin")  //redirect to admin page,new way
       }else{
-        window.location.href = "/home";  //redirect to home page
+        navigate("/")  //redirect to user home page
       }
 
         
