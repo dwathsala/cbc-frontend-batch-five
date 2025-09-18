@@ -11,7 +11,7 @@ export default function AdminPage() {
                 <Link to="/admin/reviews">Reviews</Link>
             </div>
 
-            <div className="h-full w-[calc(100%-300px)]  bg-yellow-400">
+            <div className="h-full w-[calc(100%-300px)]">
                 <Routes path="/*">
                     <Route path="/products" element={<AdminProductsPage/>} />
                     <Route path="/users" element={<h1>Users</h1>} />
