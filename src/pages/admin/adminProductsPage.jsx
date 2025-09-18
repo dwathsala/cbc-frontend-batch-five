@@ -1,9 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { sampleProducts } from "../../assets/sampleData";
+import axios from "axios";
 
 export default function AdminProductsPage() {
 
     const [products, setProducts] = useState(sampleProducts)
+
+    useEffect( //have function and dependency array(empty array)
+        ()=>{//function only run once at the beginning
+            axios.get(import.meta.env.VITE_BACKEND_URL+"/api/products")
+        .then(
+            (res)=>{
+                console.log(res.data);
+                setProducts(res.data); //refresh backend data again by again ,it is not good for performance and do not use it any day
+            }
+        )
+    },[])
+
+    
 
     return(
         <div className="w-full h-full max-h-full overflow-y-scroll">
