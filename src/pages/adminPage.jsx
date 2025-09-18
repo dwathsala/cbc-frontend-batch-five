@@ -12,7 +12,7 @@ export default function AdminPage() {
 
             <div className="h-full w-[calc(100%-300px)]  bg-yellow-400">
                 <Routes path="/*">
-                    <Route path="/products" element={<h1>Products</h1>} />
+                    <Route path="/products" element={<>Products</>} />
                     <Route path="/users" element={<h1>Users</h1>} />
                     <Route path="/orders" element={<h1>Orders</h1>} />
                     <Route path="/reviews" element={<h1>Reviews</h1>} />
