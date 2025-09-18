@@ -1,4 +1,4 @@
-export const sampleProucts = 
+export const sampleProducts = 
     [
     {
         "_id": "682091a1807dc88bd4cdd137",
@@ -39,7 +39,7 @@ export const sampleProucts =
 
     {
         "_id": "682091a1807dc88bd4cdd137",
-        "productId": "COS006z",
+        "productId": "COS006x",
         "name": "Hydrating Facial Cleanser",
         "altName": [
             "Gentle Cleanser",
@@ -57,7 +57,7 @@ export const sampleProucts =
     },
     {
         "_id": "682091de807dc88bd4cdd13a",
-        "productId": "COS007z",
+        "productId": "COS007x",
         "name": "Matte Liquid Lipstick",
         "altName": [
             "Long-Lasting Lip Color",
