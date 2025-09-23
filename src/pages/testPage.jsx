@@ -1,5 +1,7 @@
+import { createClient } from "@supabase/supabase-js";
 import { useState } from "react";
 import { compile } from "tailwindcss";
+
 
 export default function TestPage() {
     const [image, setImage] = useState(null);
@@ -7,8 +9,19 @@ export default function TestPage() {
     const url = "https://zufnjkshbpewbmbsbviy.supabase.co";
     const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp1Zm5qa3NoYnBld2JtYnNidml5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTg1MjgzMTMsImV4cCI6MjA3NDEwNDMxM30.RAmYTgvIB4RTRtA8vsauO8M2jzm0_r9jl-mv-cEXxVg";
 
+    const supabase = createClient(url, key); //make connection with supabase
+
     function fileUpload(){
-        console.log("button clicked");//to test if button works
+        supabase.storage.from("images").upload(image.name, image, {
+            upsert: false,
+            cacheControl: '3600',
+        }).then((res)=>{
+            const publicUrl = supabase.storage.from("images").getPublicUrl(image.name).data.publicUrl
+            console.log(publicUrl);
+        
+    }).catch((e)=>{
+        console.log(e);
+    })
     }
 
     return(
