@@ -16,7 +16,7 @@ export default function AdminProductsPage() {
                 setProducts(res.data); //refresh backend data again by again ,it is not good for performance and do not use it any day
             }
         )
-    },[])
+    },[]);
 
     
     return(
