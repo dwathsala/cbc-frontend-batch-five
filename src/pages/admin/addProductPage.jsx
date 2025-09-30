@@ -1,8 +1,10 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import mediaUpload from "../../utils/mediaUpload";
+
 
 export default function AddProductPage() {
 
@@ -61,6 +63,7 @@ const [images, setImages] = useState([]);
 const [labelledPrice, setLabelledPrice] = useState(0);
 const [price, setPrice] = useState(0);
 const [stock, setStock] = useState(0);
+const navigate = useNavigate();
 
 async function AddProduct(){
     const token = localStorage.getItem("token");
@@ -106,6 +109,7 @@ async function AddProduct(){
         .then((res)=>{
             //console.log(res.data);
             toast.success("Product added successfully");
+            navigate("/admin/products");
         })
         .catch((err)=>{
             //console.log(err);
@@ -125,7 +129,7 @@ async function AddProduct(){
         <input type="text" placeholder="Name" className="input input-bordered w-full max-w-xs" value={name} onChange={(e)=>{setName(e.target.value)}} />
         <input type="text" placeholder="Alt Name" className="input input-bordered w-full max-w-xs" value={altName} onChange={(e)=>{setAltName(e.target.value)}} />
         <input type="text" placeholder="Description" className="input input-bordered w-full max-w-xs" value={description} onChange={(e)=>{setDescription(e.target.value)}} />
-        <input type="file" placeholder="Images" multiple className="input input-bordered w-full max-w-xs" onChange={(e)=>{setImages(e.target.files)}} />
+        <input type="file" placeholder="Images" multiple className="input input-bordered w-full max-w-xs" onChange={(e)=>{setImages(Array.from(e.target.files))}} />
         <input type="number" placeholder="Labelled Price" className="input input-bordered w-full max-w-xs" value={labelledPrice} onChange={(e)=>{setLabelledPrice(e.target.value)}} />
         <input type="number" placeholder="Price" className="input input-bordered w-full max-w-xs" value={price} onChange={(e)=>{setPrice(e.target.value)}} />
         <input type="number" placeholder="Stock" className="input input-bordered w-full max-w-xs" value={stock} onChange={(e)=>{setStock(e.target.value)}} />
