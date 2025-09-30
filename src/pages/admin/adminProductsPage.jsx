@@ -10,13 +10,14 @@ export default function AdminProductsPage() {
     useEffect( //have function and dependency array(empty array)
         ()=>{//function only run once at the beginning
             axios.get(import.meta.env.VITE_BACKEND_URL+"/api/products")
-        .then(
-            (res)=>{
-                console.log(res.data);
-                setProducts(res.data); //refresh backend data again by again ,it is not good for performance and do not use it any day
-            }
-        )
-    },[]);
+            .then(
+                (res)=>{
+                    console.log(res.data);
+                    setProducts(res.data); //refresh backend data again by again ,it is not good for performance and do not use it any day
+                }
+            );
+        },[]
+    );
 
     
     return(
