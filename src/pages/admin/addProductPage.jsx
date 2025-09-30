@@ -62,7 +62,13 @@ const [labelledPrice, setLabelledPrice] = useState(0);
 const [price, setPrice] = useState(0);
 const [stock, setStock] = useState(0);
 
-async function AddProduct(e){
+async function AddProduct(){
+    const token = localStorage.getItem("token");
+    if(token == null){
+        toast.error("You are not logged in");
+        return;
+    }
+
     if(images.length <= 0){
         toast.error("Please select at least one image");
         return;
@@ -79,6 +85,32 @@ async function AddProduct(e){
         const imageUrls = await Promise.all(promisesArray) //it will run all promises at the same time
         console.log(imageUrls);
 
+        const altNamesArray = altName.split(",")
+
+        const product = {
+            productId : productId,
+            name : name,
+            altName : altNamesArray,
+            description : description,
+            images : imageUrls,
+            labelledPrice : Number(labelledPrice),
+            price : Number(price),
+            stock : Number(stock)
+        }
+
+        axios.post (import.meta.env.VITE_BACKEND_URL+"/api/products", product, {
+            headers : {
+                "Authorization" : "Bearer "+token
+            }
+        })
+        .then((res)=>{
+            //console.log(res.data);
+            toast.success("Product added successfully");
+        })
+        .catch((err)=>{
+            //console.log(err);
+            toast.error("Error while adding product");
+        })
         
     }catch(err){
         toast.error("Error while uploading images");
