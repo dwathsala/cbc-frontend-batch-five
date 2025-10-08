@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { sampleProducts } from "../../assets/sampleData";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
+import { FaEdit } from "react-icons/fa";
 
 export default function AdminProductsPage() {
 
@@ -51,7 +53,12 @@ export default function AdminProductsPage() {
                                         <td>${item.labelledPrice}</td>
                                         <td>${item.price}</td>
                                         <td>{item.stock}</td>
-                                        <td></td>
+                                        <td>
+                                            <div className="flex justify-center items-center space-x-4 text-lg cursor-pointer">
+                                                <FaTrash /> <FaEdit />
+                                            </div>
+                                        </td>
+                                        
                                     </tr>
                                 )
                             }
