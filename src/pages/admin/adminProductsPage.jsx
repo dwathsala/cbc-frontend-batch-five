@@ -21,7 +21,7 @@ export default function AdminProductsPage() {
 
     
     return(
-        <div className="w-full h-full max-h-full overflow-y-scroll bg-red-400 relative">
+        <div className="w-full h-full max-h-full overflow-y-scroll relative">
             <Link to="/admin/add-product" className="absolute text-xl cursor-pointer bottom-5 right-5 bg-green-500 text-white py-2 px-4 rounded text-center flex items-center justify-center">+</Link>
             <table className="w-full text-center">
                 <thead>
@@ -32,6 +32,7 @@ export default function AdminProductsPage() {
                         <th>Labelled Price</th>
                         <th>Price</th>
                         <th>Stock</th> 
+                        <th>Actions</th>
                     </tr> 
                 </thead>
 
@@ -50,6 +51,7 @@ export default function AdminProductsPage() {
                                         <td>${item.labelledPrice}</td>
                                         <td>${item.price}</td>
                                         <td>{item.stock}</td>
+                                        <td></td>
                                     </tr>
                                 )
                             }
