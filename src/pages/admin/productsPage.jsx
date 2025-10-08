@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { sampleProducts } from "../../assets/sampleData";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FaTrash } from "react-icons/fa";
 import { FaEdit } from "react-icons/fa";
@@ -8,6 +9,7 @@ import { FaEdit } from "react-icons/fa";
 export default function AdminProductsPage() {
 
     const [products, setProducts] = useState(sampleProducts)
+    const navigate = useNavigate();
 
     useEffect( //have function and dependency array(empty array)
         ()=>{//function only run once at the beginning
@@ -50,13 +52,15 @@ export default function AdminProductsPage() {
                                             <img 
                                                 src={item.images[0]} className="w-[50px] h-[50px]"/>
                                         </td>
-                                        <td>${item.labelledPrice}</td>
-                                        <td>${item.price}</td>
+                                        <td>{item.labelledPrice}</td>
+                                        <td>{item.price}</td>
                                         <td>{item.stock}</td>
                                         <td>
                                             <div className="flex justify-center items-center space-x-4 cursor-pointer">
                                                 <FaTrash className="text-[20px] text-red-600"/> 
-                                                <FaEdit className="text-[20px] text-blue-600"/> 
+                                                <FaEdit onClick={()=>{
+                                                    navigate("/admin/edit-product/")
+                                                }} className="text-[20px] text-blue-600"/> 
                                             </div>
                                         </td>
                                         
