@@ -54,8 +54,9 @@ export default function AdminProductsPage() {
                                         <td>${item.price}</td>
                                         <td>{item.stock}</td>
                                         <td>
-                                            <div className="flex justify-center items-center space-x-4 text-lg cursor-pointer">
-                                                <FaTrash /> <FaEdit />
+                                            <div className="flex justify-center items-center space-x-4 cursor-pointer">
+                                                <FaTrash className="text-[20px] text-red-600"/> 
+                                                <FaEdit className="text-[20px] text-blue-600"/> 
                                             </div>
                                         </td>
                                         
