@@ -8,17 +8,16 @@ import mediaUpload from "../../utils/mediaUpload";
 
 export default function EditProductPage() {
 
-
-const [productId, setProductId] = useState("");
-const [name, setName] = useState("");
-const [altName, setAltName] = useState('');
-const [description, setDescription] = useState("");
-const [images, setImages] = useState([]);
-const [labelledPrice, setLabelledPrice] = useState(0);
-const [price, setPrice] = useState(0);
-const [stock, setStock] = useState(0);
-const navigate = useNavigate();  //navigate is function
 const location = useLocation();  //location is json object
+const [productId, setProductId] = useState(location.state.productId);
+const [name, setName] = useState(location.state.name);
+const [altName, setAltName] = useState(location.state.altName.join(","));
+const [description, setDescription] = useState(location.state.description);
+const [images, setImages] = useState([]);
+const [labelledPrice, setLabelledPrice] = useState(location.state.labelledPrice);
+const [price, setPrice] = useState(location.state.price);
+const [stock, setStock] = useState(location.state.stock);
+const navigate = useNavigate();  //navigate is function
 console.log(location);
 
 async function updateProduct(){
@@ -28,10 +27,7 @@ async function updateProduct(){
         return;
     }
 
-    if(images.length <= 0){
-        toast.error("Please select at least one image");
-        return;
-    }
+    let imageUrls = location.state.images; //default value is old images
 
     const promisesArray = []
 
@@ -40,8 +36,9 @@ async function updateProduct(){
     }
 
     try{
-
-        const imageUrls = await Promise.all(promisesArray) //it will run all promises at the same time
+        if(images.length > 0){ //if user select new images
+             imageUrls = await Promise.all(promisesArray) //it will run all promises at the same time
+        }
         console.log(imageUrls);
 
         const altNamesArray = altName.split(",")
@@ -57,24 +54,23 @@ async function updateProduct(){
             stock : Number(stock)
         }
 
-        axios.post (import.meta.env.VITE_BACKEND_URL+"/api/products", product, {
+        axios.put (import.meta.env.VITE_BACKEND_URL+"/api/products/" +productId, product, {
             headers : {
                 "Authorization" : "Bearer "+token
             }
         })
         .then((res)=>{
             //console.log(res.data);
-            toast.success("Product added successfully");
+            toast.success("Product updated successfully");
             navigate("/admin/products");
         })
         .catch((err)=>{
             //console.log(err);
-            toast.error("Error while adding product");
+            toast.error("err.response.data.message");
         })
         
     }catch(err){
-        toast.error("Error while uploading images");
-        return;
+        console.log(err);
     }    
     
 }
@@ -82,7 +78,7 @@ async function updateProduct(){
     return(
     <div className="w-full h-full flex flex-col justify-center items-center">
         <h1 className="text-3xl font-bold mb-4">Edit Product</h1>
-        <input type="text" placeholder="Product ID" className="input input-bordered w-full max-w-xs" value={productId} onChange={(e)=>{setProductId(e.target.value)}} />
+        <input type="text" disabled placeholder="Product ID" className="input input-bordered w-full max-w-xs" value={productId} onChange={(e)=>{setProductId(e.target.value)}} />
         <input type="text" placeholder="Name" className="input input-bordered w-full max-w-xs" value={name} onChange={(e)=>{setName(e.target.value)}} />
         <input type="text" placeholder="Alt Name" className="input input-bordered w-full max-w-xs" value={altName} onChange={(e)=>{setAltName(e.target.value)}} />
         <input type="text" placeholder="Description" className="input input-bordered w-full max-w-xs" value={description} onChange={(e)=>{setDescription(e.target.value)}} />
