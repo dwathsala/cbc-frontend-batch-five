@@ -1,6 +1,6 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import mediaUpload from "../../utils/mediaUpload";
@@ -17,7 +17,9 @@ const [images, setImages] = useState([]);
 const [labelledPrice, setLabelledPrice] = useState(0);
 const [price, setPrice] = useState(0);
 const [stock, setStock] = useState(0);
-const navigate = useNavigate();
+const navigate = useNavigate();  //navigate is function
+const location = useLocation();  //location is json object
+console.log(location);
 
 async function updateProduct(){
     const token = localStorage.getItem("token");

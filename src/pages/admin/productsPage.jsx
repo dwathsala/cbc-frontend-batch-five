@@ -59,7 +59,9 @@ export default function AdminProductsPage() {
                                             <div className="flex justify-center items-center space-x-4 cursor-pointer">
                                                 <FaTrash className="text-[20px] text-red-600"/> 
                                                 <FaEdit onClick={()=>{
-                                                    navigate("/admin/edit-product/")
+                                                    navigate("/admin/edit-product", {
+                                                        state : item //send whole item to edit page by state
+                                                    })
                                                 }} className="text-[20px] text-blue-600"/> 
                                             </div>
                                         </td>
@@ -75,3 +77,5 @@ export default function AdminProductsPage() {
         </div>
     )
 }
+
+//useLocation hook is use to read information from another page
