@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
+
 export default function ProductCard({ product }) {
   return (
-    <div className="w-[280px] bg-white rounded-3xl shadow-lg m-4 flex flex-col overflow-hidden hover:shadow-2xl hover:scale-105 transition-transform duration-300">
+    <Link to={"/overview/" + product.productId} className="w-[280px] bg-white rounded-3xl shadow-lg m-4 flex flex-col overflow-hidden hover:shadow-2xl hover:scale-105 transition-transform duration-300">
       
       {/* Product Image */}
       <div className="w-full h-[220px] bg-gray-100 flex items-center justify-center overflow-hidden">
@@ -79,6 +81,6 @@ export default function ProductCard({ product }) {
           Add to Cart
         </button>
       </div>
-    </div>
+    </Link>
   );
 }
