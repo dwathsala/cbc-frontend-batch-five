@@ -29,12 +29,9 @@ export default function ProductOverview() {
     )
 
     return (
-        <div>
+        <div className="bg-primary">
             This is overview page for product {productId} {JSON.stringify(product)}
         </div>
     )
 }
 
-//FBFBFB   background color
-//C5BAFF   Accent color
-//44444E   secondary text
