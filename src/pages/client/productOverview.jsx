@@ -34,3 +34,7 @@ export default function ProductOverview() {
         </div>
     )
 }
+
+//FBFBFB   background color
+//C5BAFF   Accent color
+//44444E   secondary text
