@@ -29,7 +29,7 @@ export default function ProductOverview() {
     )
 
     return (
-        <div className="bg-primary">
+        <div className="bg-primary font-fancy">
             This is overview page for product {productId} {JSON.stringify(product)}
         </div>
     )
