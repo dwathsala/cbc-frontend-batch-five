@@ -29,8 +29,14 @@ export default function ProductOverview() {
     )
 
     return (
-        <div className="bg-primary font-fancy">
-            This is overview page for product {productId} {JSON.stringify(product)}
+        <div className="w-full h-full flex flex-row"> 
+            <div className="w-[50%] h-full ml-20">
+
+            </div>  
+
+            <div className="w-[50%] h-full mr-20">
+            
+            </div>          
         </div>
     )
 }
