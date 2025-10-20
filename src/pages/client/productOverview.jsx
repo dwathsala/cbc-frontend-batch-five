@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState , useEffect } from "react";
 import toast from "react-hot-toast";
 import { useParams } from "react-router-dom"
+import Loading from "../../components/loading";
 
 export default function ProductOverview() {
     const params = useParams();
@@ -29,15 +30,28 @@ export default function ProductOverview() {
     )
 
     return (
+        <>
+        {
+        status == "success" && ( 
         <div className="w-full h-full flex flex-row"> 
             <div className="w-[50%] h-full">
-
+                <imageSlider images={product.images} />
             </div>  
 
             <div className="w-[50%] h-full">
             
             </div>          
         </div>
+        )}
+
+        {
+        status == "loading" && <Loading />
+        
+        }
+        </>
     )
 }
+
+// == is use for comparing value only
+// === is use for comparing value and type both
 
