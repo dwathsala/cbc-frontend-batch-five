@@ -1,6 +1,6 @@
 export default function ImageSlider(props) {
 
-    const images = props.images || [];
+    const images = props.images;
 
     return (
         <div>
