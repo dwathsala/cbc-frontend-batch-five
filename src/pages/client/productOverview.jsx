@@ -30,11 +30,11 @@ export default function ProductOverview() {
 
     return (
         <div className="w-full h-full flex flex-row"> 
-            <div className="w-[50%] h-full ml-20">
+            <div className="w-[50%] h-full">
 
             </div>  
 
-            <div className="w-[50%] h-full mr-20">
+            <div className="w-[50%] h-full">
             
             </div>          
         </div>
