@@ -11,9 +11,14 @@ export default function ImageSlider(props) {
                 {images?.map( //? if there is images then only map
                     (image,index) => {
                         return (    
-                            <img className={"w-[80px] h-[80px] m-2 rounded-2xl cursor-pointer object-cover" }src={image} />
+                            <img className={"w-[80px] h-[80px] m-2 rounded-2xl cursor-pointer object-cover hover:border-4 hover:border-accent "+(index==currentIndex&&"border-accent border-4")} src={image} onClick={
+                                ()=>{
+                                    setCurrentIndex(index);
+                                }
+                            }/>
                         )
                     }
+                    
                 )}
             </div>
         </div>
