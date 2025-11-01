@@ -5,8 +5,8 @@ export default function ImageSlider(props) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     return (
-        <div className="w-[500px] h-[600px] bg-red-900">
-            <img src={images[currentIndex]} className="w-full h-[500px] object-cover" /> 
+        <div className="w-[500px] h-[600px] ">
+            <img src={images[currentIndex]} className="w-full h-[500px] object-cover rounded-3xl" /> 
             <div className="w-full h-[100px] flex justify-center items-center">
                 {images?.map( //? if there is images then only map
                     (image,index) => {

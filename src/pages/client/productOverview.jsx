@@ -39,7 +39,8 @@ export default function ProductOverview() {
                 <ImageSlider images={product.images} />
             </div>  
 
-            <div className="w-[50%] h-full bg-blue-500">
+            <div className="w-[50%] h-full flex flex-col">
+                <h1 className=""></h1>
                 
             </div>          
         </div>
