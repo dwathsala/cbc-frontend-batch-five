@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getCart } from "../../utils/cart";
+import { addToCart, getCart } from "../../utils/cart";
 import { BiTrash } from "react-icons/bi";
 
 export default function CartPage() {
@@ -29,7 +29,9 @@ export default function CartPage() {
                             <div className="w-[100px] h-full flex flex-row justify-center items-center">
                                 <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent ">-</button>
                                 <span className="mx-4 text-lg font-semibold text-secondary-text">{item.qty}</span>
-                                <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent">+</button>
+                                <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent" onClick={() =>{
+                                    addToCart(item.productId, 1);
+                                } }>+</button>
                             </div>
 
                             {/*total*/}
