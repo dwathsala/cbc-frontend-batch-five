@@ -30,7 +30,8 @@ export default function CartPage() {
                                 <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent ">-</button>
                                 <span className="mx-4 text-lg font-semibold text-secondary-text">{item.qty}</span>
                                 <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent" onClick={() =>{
-                                    addToCart(item.productId, 1);
+                                    addToCart(item, 1); //add one more item to the cart
+                                    setCart(getCart()); //update the cart state to reflect the changes
                                 } }>+</button>
                             </div>
 
