@@ -21,7 +21,7 @@ export default function LoginPage(){
       //alert("Login Successful");
       toast.success("Login Successful");
       console.log(response.data);
-      localStorage.setItem("token", response.data.token); //store token in local storage
+      localStorage.setItem("token", response.data.token); //store token in local storage/ user's browser
       //const token = localStorage.getItem("token");   //to get token from local storage
 
 
