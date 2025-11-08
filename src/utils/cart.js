@@ -4,7 +4,7 @@ export function getCart() {
         cart = [];
         localStorage.setItem("cart", JSON.stringify(cart)); //stringify use to convert json or array into string
     }else {
-        cart = JSON.parse(cart); 
+        cart = JSON.parse(cart); //convert string back to json or array
     }
     return cart
 }
@@ -20,8 +20,8 @@ export function removeFromCart(productId) {
 
 export function addToCart(product, qty) {
     let cart = getCart();
-    let index = cart.findIndex((item) => 
-        {return item.productId == product.productId});
+    let index = cart.findIndex((item) => //check whether the product is already in the cart
+        {return item.productId == product.productId}); //if there is no such product, it will return -1
 
     if(index == -1){
         cart[cart.length] = {
