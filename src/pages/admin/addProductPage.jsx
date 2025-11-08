@@ -66,7 +66,7 @@ const [stock, setStock] = useState(0);
 const navigate = useNavigate();
 
 async function AddProduct(){
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token"); //use to get or read token from local storage
     if(token == null){
         toast.error("You are not logged in");
         return;
