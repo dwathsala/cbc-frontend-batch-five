@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { addToCart, getCart, removeFromCart, getTotal } from "../../utils/cart";
 import { BiTrash } from "react-icons/bi";
 
@@ -7,12 +8,17 @@ export default function CartPage() {
     
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
-            <div className="w-[200px] h-[80px] shadow absolute top-1 right-1 flex justify-center items-center">
+            <div className="w-[350px] h-[80px] shadow absolute top-1 right-1 flex flex-col justify-center items-center">
                 <p className="text-2xl text-secondary-text font-bold">Total: 
                     <span className="text-accent font-bold mx-2">
                         {getTotal().toFixed(2)}
                     </span>
                 </p>
+
+                <Link to="/checkout" className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent">
+                    Checkout
+                </Link>
+
             </div>
             {
                 cart.map((item)=>{
