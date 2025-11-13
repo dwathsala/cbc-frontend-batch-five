@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addToCart, getCart } from "../../utils/cart";
+import { addToCart, getCart, removeFromCart } from "../../utils/cart";
 import { BiTrash } from "react-icons/bi";
 
 export default function CartPage() {
@@ -27,7 +27,12 @@ export default function CartPage() {
                             </div>
 
                             <div className="w-[100px] h-full flex flex-row justify-center items-center">
-                                <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent ">-</button>
+                                <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent"
+                                onClick={()=>{
+                                    addToCart(item, -1);
+                                    setCart(getCart());
+                                }}
+                                >-</button>
                                 <span className="mx-4 text-lg font-semibold text-secondary-text">{item.qty}</span>
                                 <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent" onClick={() =>{
                                     addToCart(item, 1); //add one more item to the cart
@@ -42,7 +47,12 @@ export default function CartPage() {
                             </div>
 
                             <div>
-                                <button className="absolute top-1 bg-red-600 text-white rounded-full p-2 m-1 right-[-35] cursor-pointer hover:bg-red-700 active:bg-red-600 font-bold"><BiTrash/></button>
+                                <button className="absolute top-1 bg-red-600 text-white rounded-full p-2 m-1 right-[-35] cursor-pointer hover:bg-red-700 active:bg-red-600 font-bold"
+                                onClick={()=>{
+                                    removeFromCart(item.productId);
+                                    setCart(getCart()); //refresh cart
+                                }}
+                                ><BiTrash/></button>
                             </div>                            
 
                         </div>
