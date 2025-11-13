@@ -1,12 +1,19 @@
 import { useState } from "react";
-import { addToCart, getCart, removeFromCart } from "../../utils/cart";
+import { addToCart, getCart, removeFromCart, getTotal } from "../../utils/cart";
 import { BiTrash } from "react-icons/bi";
 
 export default function CartPage() {
     const [cart, setCart] = useState(getCart()); 
     
     return (
-        <div className="w-full h-full flex flex-col items-center pt-4">
+        <div className="w-full h-full flex flex-col items-center pt-4 relative">
+            <div className="w-[200px] h-[80px] shadow absolute top-1 right-1 flex justify-center items-center">
+                <p className="text-2xl text-secondary-text font-bold">Total: 
+                    <span className="text-accent font-bold mx-2">
+                        {getTotal().toFixed(2)}
+                    </span>
+                </p>
+            </div>
             {
                 cart.map((item)=>{
                     return (
