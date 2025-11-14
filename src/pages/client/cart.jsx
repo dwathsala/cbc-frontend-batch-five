@@ -15,7 +15,11 @@ export default function CartPage() {
                     </span>
                 </p>
 
-                <Link to="/checkout" className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent">
+                <Link to="/checkout" state={
+                    {
+                        
+                    }
+                } className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent">
                     Checkout
                 </Link>
 
