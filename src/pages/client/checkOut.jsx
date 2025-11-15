@@ -8,6 +8,23 @@ export default function CheckOutPage() {
     console.log(location.state.cart);
 
     const [cart, setCart] = useState(location.state?.cart || []); 
+
+    function getTotal() {
+        let total = 0;
+        cart.forEach((item) => {
+            total += item.price * item.qty;
+        });
+        return total;
+    }
+
+    function removeFromCart(index) {
+        const newCart = cart.filter((item,i) => i !== index);
+        setCart(newCart);
+    }
+
+    function changeQty(index,qty){
+        
+    }
     
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
@@ -18,7 +35,7 @@ export default function CheckOutPage() {
                     </span>
                 </p>
 
-                <button to="/checkout" className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent">
+                <button className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent">
                     Place Order
                 </button>
 
