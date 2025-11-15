@@ -1,9 +1,13 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { BiTrash } from "react-icons/bi";
 
 export default function CheckOutPage() {
-    const [cart, setCart] = useState([]); 
+    const location = useLocation();
+    console.log(location.state.cart);
+
+    const [cart, setCart] = useState(location.state?.cart || []); 
     
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
@@ -14,9 +18,9 @@ export default function CheckOutPage() {
                     </span>
                 </p>
 
-                <Link to="/checkout" className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent">
-                    Checkout
-                </Link>
+                <button to="/checkout" className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent">
+                    Place Order
+                </button>
 
             </div>
             {
