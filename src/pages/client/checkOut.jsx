@@ -23,15 +23,22 @@ export default function CheckOutPage() {
     }
 
     function changeQty(index,qty){
-        
+        const constQty = cart[index].qty + qty;
+        if(constQty <= 0) {
+            removeFromCart(index);
+            return;
+        }else{
+            cart[index].qty = newQty;
+            setCart(cart)
     }
+}
     
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
             <div className="w-[350px] h-[80px] shadow absolute top-1 right-1 flex flex-col justify-center items-center">
                 <p className="text-2xl text-secondary-text font-bold">Total: 
                     <span className="text-accent font-bold mx-2">
-                        {}
+                        {getTotal().toFixed(2)}
                     </span>
                 </p>
 
@@ -41,7 +48,7 @@ export default function CheckOutPage() {
 
             </div>
             {
-                cart.map((item)=>{
+                cart.map((item , index)=>{
                     return (
                         <div key={item.productId} className="w-[600px] h-[100px] bg-primary shadow-2xl rounded-tl-3xl rounded-bl-3xl flex flex-row my-2 relative justify-center items-center">
                             <img src={item.image} alt={item.name} className="w-[100px] h-[100px] object-cover rounded-3xl"/>
@@ -62,7 +69,7 @@ export default function CheckOutPage() {
                             <div className="w-[100px] h-full flex flex-row justify-center items-center">
                                 <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent"
                                 onClick={()=>{
-                                    
+                                    changeQty(index, -1);
                                 }}
                                 >-</button>
                                 <span className="mx-4 text-lg font-semibold text-secondary-text">{item.qty}</span>
