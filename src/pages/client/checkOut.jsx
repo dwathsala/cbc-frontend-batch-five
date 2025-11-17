@@ -18,20 +18,22 @@ export default function CheckOutPage() {
     }
 
     function removeFromCart(index) {
-        const newCart = cart.filter((item,i) => i !== index);
+        const newCart = cart.filter((item,i) => i !== index); //remove items that don't match the index and create a new array and copy items into it feom the old array
         setCart(newCart);
     }
 
     function changeQty(index,qty){
-        const constQty = cart[index].qty + qty;
-        if(constQty <= 0) {
+        const newQty = cart[index].qty + qty;
+        if(newQty <= 0) {
             removeFromCart(index);
             return;
         }else{
-            cart[index].qty = newQty;
-            setCart(cart)
+            const newCart = [...cart];
+            newCart[index].qty = newQty;
+            setCart(newCart);
     }
 }
+
     
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
@@ -74,7 +76,7 @@ export default function CheckOutPage() {
                                 >-</button>
                                 <span className="mx-4 text-lg font-semibold text-secondary-text">{item.qty}</span>
                                 <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent" onClick={() =>{
-                                    
+                                    changeQty(index, 1);
                                 } }>+</button>
                             </div>
 
@@ -87,7 +89,7 @@ export default function CheckOutPage() {
                             <div>
                                 <button className="absolute top-1 bg-red-600 text-white rounded-full p-2 m-1 right-[-35] cursor-pointer hover:bg-red-700 active:bg-red-600 font-bold"
                                 onClick={()=>{
-                                    
+                                    removeFromCart(index);
                                 }}
                                 ><BiTrash/></button>
                             </div>                            
