@@ -11,6 +11,8 @@ export default function CheckOutPage() {
     console.log(location.state.cart);
 
     const [cart, setCart] = useState(location.state?.cart || []); 
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [address, setAddress] = useState("");
 
     function getTotal() {
         let total = 0;
@@ -46,8 +48,8 @@ export default function CheckOutPage() {
 
         const orderInformation = {
             products : [],
-            phone : "+94 71 930 5289",
-            address : "N0 12,Main Street, Colombo",
+            phone : phoneNumber,
+            address :address,
             localPrice : getTotal()
 
                 /*{productId: "sampleId", qty: 2},
@@ -87,6 +89,25 @@ export default function CheckOutPage() {
                         {getTotal().toFixed(2)}
                     </span>
                 </p>
+
+                <input 
+                    type="text"
+                    placeholder="Phone Number"    
+                    className="w-full h-[40px] px-2 rounded-lg boredr border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent "   
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                />
+
+                <input
+                    type="text"
+                    placeholder="Address"
+                    className="w-full h-[40px] px-2 rounded-lg boredr border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent "
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                />
+
+                <Link></Link>
+                 
 
                 <button className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent" onClick={placeOrder} >
                     Place Order
