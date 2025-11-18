@@ -45,7 +45,11 @@ export default function CheckOutPage() {
         }
 
         const orderInformation = {
-            products : []
+            products : [],
+            phone : "+94 71 930 5289",
+            address : "N0 12,Main Street, Colombo",
+            localPrice : getTotal()
+
                 /*{productId: "sampleId", qty: 2},
                 {productId: "sampleId2", qty: 1}*/ //saample data,in here array should empty            
         }
