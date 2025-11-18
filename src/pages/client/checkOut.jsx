@@ -37,7 +37,7 @@ export default function CheckOutPage() {
     }
 }
 
-    function placeOrder() {
+    async function placeOrder() {
         const Token = localStorage.getItem("token");
         if(!Token) {
             toast.error("Please login to place order");
@@ -58,11 +58,20 @@ export default function CheckOutPage() {
             orderInformation.products[i] = item
         }
 
-        axios.post(import.meta.VITE_BACKEND_URL + "/api/oreders", orderInformation, {
+        try{
+            const res = await axios.post(import.meta.env.VITE_BACKEND_URL + "/api/orders", orderInformation, {
             headers: {
                 Authorization: "Bearer " + Token
             }
         })
+        toast.success("order placed successfully.")
+        console.log(res.data)
+
+        }catch(err){
+            console.log(err)
+            toast.error("Error placing order")
+            return
+        }
     }
 
 
@@ -75,7 +84,7 @@ export default function CheckOutPage() {
                     </span>
                 </p>
 
-                <button className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent" onClick={()=>placeOrder()} >
+                <button className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent" onClick={placeOrder} >
                     Place Order
                 </button>
 
