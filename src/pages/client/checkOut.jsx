@@ -83,7 +83,7 @@ export default function CheckOutPage() {
 
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
-            <div className="w-[350px] h-[80px] shadow absolute top-1 right-1 flex flex-col justify-center items-center">
+            <div className="w-[350px] shadow absolute top-1 right-1 flex flex-col justify-center items-center p-2 gap-2">
                 <p className="text-2xl text-secondary-text font-bold">Total: 
                     <span className="text-accent font-bold mx-2">
                         {getTotal().toFixed(2)}
@@ -106,7 +106,7 @@ export default function CheckOutPage() {
                     onChange={(e) => setAddress(e.target.value)}
                 />
 
-                <Link></Link>
+                <Link to="/cart" ></Link>
                  
 
                 <button className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent" onClick={placeOrder} >
