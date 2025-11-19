@@ -7,7 +7,7 @@ export default function AdminPage() {
 
     const location = useLocation();
     const path = location.pathname;
-
+ 
     function getClass(name){
         if(path.includes(name)){
             return "bg-accent text-white";
@@ -19,7 +19,7 @@ export default function AdminPage() {
     return(
         <div className="w-full h-screen flex">
             <div className="h-full w-[300px] text-accent font-bold p-4 gap-4 text-xl flex flex-col ">
-                <Link to="/admin/products">Products</Link>
+                <Link className={getClass("products")} to="/admin/products">Products</Link>
                 <Link to="/admin/users">Users</Link>
                 <Link to="/admin/orders">Orders</Link>
                 <Link to="/admin/reviews">Reviews</Link>
