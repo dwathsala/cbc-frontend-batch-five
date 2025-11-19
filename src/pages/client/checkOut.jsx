@@ -83,28 +83,30 @@ export default function CheckOutPage() {
 
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
-            <div className="w-[350px] shadow absolute top-1 right-1 flex flex-col justify-center items-center p-2 gap-2"> 
+            <div className="w-[350px] shadow absolute top-1 right-1 flex flex-col justify-center items-center p-2 gap-10"> 
                 <p className="text-2xl text-secondary-text font-bold">Total: 
                     <span className="text-accent font-bold mx-2"> 
                         {getTotal().toFixed(2)}
                     </span>
                 </p>
 
-                <input 
-                    type="text"
-                    placeholder="Phone Number"    
-                    className="w-full h-[40px] px-2 rounded-lg boredr border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent "   
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                />
+                <div>
+                    <input 
+                        type="text"
+                        placeholder="Phone Number"    
+                        className="w-full h-[40px] px-2 rounded-lg boredr border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent "   
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                    />
 
-                <input
-                    type="text"
-                    placeholder="Address"
-                    className="w-full h-[40px] px-2 rounded-lg boredr border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent "
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
-                />
+                    <input
+                        type="text"
+                        placeholder="Address"
+                        className="w-full h-[40px] px-2 rounded-lg boredr border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent "
+                        value={address}
+                        onChange={(e) => setAddress(e.target.value)}
+                    />
+                </div>
 
                 <Link to="/cart" ></Link>
                  

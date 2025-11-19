@@ -1,12 +1,24 @@
-import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route, useLocation } from "react-router-dom";
 import AdminProductsPage from "./admin/productsPage";
 import AddProductPage from "./admin/addProductPage";
 import EditProductPage from "./admin/editProductPage";
 
 export default function AdminPage() {
+
+    const location = useLocation();
+    const path = location.pathname;
+
+    function getClass(name){
+        if(path.includes(name)){
+            return "bg-accent text-white";
+        }else{
+            return "text-accent"
+        }
+    }
+
     return(
         <div className="w-full h-screen flex">
-            <div className="h-full w-[300px] flex flex-col">
+            <div className="h-full w-[300px] text-accent font-bold p-4 gap-4 text-xl flex flex-col ">
                 <Link to="/admin/products">Products</Link>
                 <Link to="/admin/users">Users</Link>
                 <Link to="/admin/orders">Orders</Link>
