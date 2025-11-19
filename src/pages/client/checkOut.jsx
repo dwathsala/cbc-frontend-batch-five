@@ -83,9 +83,9 @@ export default function CheckOutPage() {
 
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
-            <div className="w-[350px] shadow absolute top-1 right-1 flex flex-col justify-center items-center p-2 gap-2">
+            <div className="w-[350px] shadow absolute top-1 right-1 flex flex-col justify-center items-center p-2 gap-2"> 
                 <p className="text-2xl text-secondary-text font-bold">Total: 
-                    <span className="text-accent font-bold mx-2">
+                    <span className="text-accent font-bold mx-2"> 
                         {getTotal().toFixed(2)}
                     </span>
                 </p>
