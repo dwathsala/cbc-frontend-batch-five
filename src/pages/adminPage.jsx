@@ -18,14 +18,14 @@ export default function AdminPage() {
 
     return(
         <div className="w-full h-screen flex">
-            <div className="h-full w-[300px] text-accent font-bold py-4 gap-4 text-xl flex flex-col mx-4">
+            <div className="h-full w-[300px] text-accent font-bold  text-xl flex flex-col mx-2 ">
                 <Link className={getClass("products")} to="/admin/products">Products</Link>
                 <Link className={getClass("users")} to="/admin/users">Users</Link>
                 <Link className={getClass("orders")} to="/admin/orders">Orders</Link>
                 <Link className={getClass("review")} to="/admin/reviews">Reviews</Link>
             </div>
 
-            <div className="h-full w-[calc(100%-300px)] border-4 border-accent rounded-md m-4">
+            <div className="h-full w-[calc(100%-300px)] border-4 border-accent rounded-md  ">
                 <Routes>
                     <Route path="/products" element={<AdminProductsPage/>} />
                     <Route path="/users" element={<h1>Users</h1>} />
