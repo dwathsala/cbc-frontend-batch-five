@@ -10,22 +10,22 @@ export default function AdminPage() {
  
     function getClass(name){
         if(path.includes(name)){
-            return "bg-accent text-white";
+            return "bg-accent text-white p-2 rounded-md";
         }else{
-            return "text-accent"
-        }
+            return "text-accent p-2 rounded-md ";
+        } 
     }
 
     return(
         <div className="w-full h-screen flex">
-            <div className="h-full w-[300px] text-accent font-bold p-4 gap-4 text-xl flex flex-col ">
+            <div className="h-full w-[300px] text-accent font-bold py-4 gap-4 text-xl flex flex-col mx-4">
                 <Link className={getClass("products")} to="/admin/products">Products</Link>
-                <Link to="/admin/users">Users</Link>
-                <Link to="/admin/orders">Orders</Link>
-                <Link to="/admin/reviews">Reviews</Link>
+                <Link className={getClass("users")} to="/admin/users">Users</Link>
+                <Link className={getClass("orders")} to="/admin/orders">Orders</Link>
+                <Link className={getClass("review")} to="/admin/reviews">Reviews</Link>
             </div>
 
-            <div className="h-full w-[calc(100%-300px)]">
+            <div className="h-full w-[calc(100%-300px)] border-4 border-accent rounded-md m-4">
                 <Routes>
                     <Route path="/products" element={<AdminProductsPage/>} />
                     <Route path="/users" element={<h1>Users</h1>} />
