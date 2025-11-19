@@ -1,117 +1,138 @@
 import { useEffect, useState } from "react";
-import { sampleProducts } from "../../assets/sampleData";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
-import { FaTrash } from "react-icons/fa";
-import { FaEdit } from "react-icons/fa";
+import { useNavigate, Link } from "react-router-dom";
+import { FaTrash, FaEdit } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { sampleProducts } from "../../assets/sampleData";
 
 export default function AdminProductsPage() {
+  const [products, setProducts] = useState(sampleProducts);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
-    const [products, setProducts] = useState(sampleProducts)
-    const [isLoading, setIsLoading] = useState(true);
-    const navigate = useNavigate();
-
-    useEffect( //have function and dependency array(empty array)
-        ()=>{//function only run once at the beginning but if we passed variables to that empty array, it will run again and again when that variable value changes(only sensitive to small variables include string, number, boolean ,not sensitive for json object or array)
-
-            if(isLoading ==true){
-                axios.get(import.meta.env.VITE_BACKEND_URL+"/api/products")
-                .then(
-                    (res)=>{
-                        console.log(res.data);
-                        setProducts(res.data); //refresh backend data again by again ,it is not good for performance and do not use it any day
-                        setIsLoading(false); 
-                    }
-                );
-            }
-        },[isLoading] //if isLoading value changes, useEffect function will run again
-    );
-
-    function deleteProduct(productId){
-        const token = localStorage.getItem("token");
-        if(token == null){
-            toast.error("You are not logged in");
-            return;
-        }
-        axios.delete(import.meta.env.VITE_BACKEND_URL+"/api/products/" +productId, {
-            headers : {
-                "Authorization" : "Bearer "+token
-            }
-        }).then(() =>{
-            toast.success("Product deleted successfully");
-            setIsLoading(true); 
-        }).catch((err) =>{
-            toast.error(err.response.data.message);
-        })
+  // Fetch Products
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await axios.get(import.meta.env.VITE_BACKEND_URL + "/api/products");
+        setProducts(res.data);
+      } catch (err) {
+        toast.error("Failed to load products");
+      } finally {
+        setIsLoading(false);
+      }
     }
 
-    return(
-        <div className="w-full h-full max-h-full overflow-y-scroll relative">
-            <Link to="/admin/add-product" className="absolute text-xl cursor-pointer bottom-5 right-5 bg-green-500 text-white py-2 px-4 rounded text-center flex items-center justify-center">+</Link>
+    if (isLoading) fetchProducts();
+  }, [isLoading]);
 
-            {//!isLoading && // only display the table when the table is not loading, after loaded display the table (like if condition)
-            isLoading ? //like if-else condition
-            //: is use to represent else
-                <div className="w-full h-full flex justify-center items-center">
-                    <div className="w-[100px] h-[100px] border-[5px] border-t-blue-600 border-gray-300 rounded-full animate-spin" >
+  // Delete Product
+  function deleteProduct(productId) {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("You are not logged in");
+      return;
+    }
+
+    axios
+      .delete(import.meta.env.VITE_BACKEND_URL + "/api/products/" + productId, {
+        headers: { Authorization: "Bearer " + token },
+      })
+      .then(() => {
+        toast.success("Product deleted successfully");
+        setIsLoading(true);
+      })
+      .catch((err) => {
+        toast.error(err.response?.data?.message || "Error deleting product");
+      });
+  }
+
+  return (
+    <div className="w-full h-full p-4 overflow-y-auto relative">
+      
+      {/* ADD PRODUCT BUTTON */}
+      <Link
+        to="/admin/add-product"
+        className="fixed bottom-6 right-6 bg-green-600 hover:bg-green-700 transition text-white text-xl py-3 px-6 rounded-full shadow-lg flex items-center justify-center"
+      >
+        +
+      </Link>
+
+      {/* LOADING SPINNER */}
+      {isLoading ? (
+        <div className="w-full h-full flex justify-center items-center">
+          <div className="w-16 h-16 border-[6px] border-gray-300 border-t-accent rounded-full animate-spin"></div>
+        </div>
+      ) : (
+
+        <div className="bg-white border border-accent/40 rounded-xl shadow-sm p-4">
+          <h1 className="text-2xl font-heading text-accent pb-4">Products List</h1>
+
+          <table className="w-full border-collapse">
+            <thead className="bg-accent text-white text-lg">
+              <tr>
+                <th className="py-3 px-2">ID</th>
+                <th className="py-3 px-2">Name</th>
+                <th className="py-3 px-2">Image</th>
+                <th className="py-3 px-2">Labelled Price</th>
+                <th className="py-3 px-2">Price</th>
+                <th className="py-3 px-2">Stock</th>
+                <th className="py-3 px-2">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {products.map((item, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-gray-200 hover:bg-primary transition"
+                >
+                  <td className="py-3 text-center">{item.productId}</td>
+                  <td className="py-3 text-center font-semibold">{item.name}</td>
+
+                  {/* Product Image */}
+                  <td className="py-3 flex justify-center">
+                    <img
+                      src={item.images[0]}
+                      className="w-14 h-14 rounded-md object-cover border"
+                    />
+                  </td>
+
+                  <td className="py-3 text-center">{item.labelledPrice}</td>
+                  <td className="py-3 text-center">{item.price}</td>
+                  <td className="py-3 text-center">{item.stock}</td>
+
+                  {/* ACTION BUTTONS */}
+                  <td className="py-3">
+                    <div className="flex justify-center gap-5">
+
+                      {/* DELETE */}
+                      <button
+                        onClick={() => deleteProduct(item.productId)}
+                        className="text-red-600 hover:text-red-700 transition p-2 rounded-full bg-red-100 hover:bg-red-200"
+                      >
+                        <FaTrash size={18} />
+                      </button>
+
+                      {/* EDIT */}
+                      <button
+                        onClick={() =>
+                          navigate("/admin/edit-product", { state: item })
+                        }
+                        className="text-blue-600 hover:text-blue-700 transition p-2 rounded-full bg-blue-100 hover:bg-blue-200"
+                      >
+                        <FaEdit size={18} />
+                      </button>
 
                     </div>
-                </div> :   
-            <table className="w-full text-center">
-                <thead>
-                    <tr>
-                        <th>Product ID</th>
-                        <th>Name</th>
-                        <th>Image</th>
-                        <th>Labelled Price</th>
-                        <th>Price</th>
-                        <th>Stock</th> 
-                        <th>Actions</th>
-                    </tr> 
-                </thead>
-
-                <tbody>
-                    {
-                        products.map(
-                            (item,index) =>{
-                                return(
-                                    <tr key={index}>
-                                        <td>{item.productId}</td>
-                                        <td>{item.name}</td>
-                                        <td>
-                                            <img 
-                                                src={item.images[0]} className="w-[50px] h-[50px]"/>
-                                        </td>
-                                        <td>{item.labelledPrice}</td>
-                                        <td>{item.price}</td>
-                                        <td>{item.stock}</td>
-                                        <td>
-                                            <div className="flex justify-center items-center space-x-4 cursor-pointer">
-                                                <FaTrash className="text-[20px] text-red-600" onClick={() =>{
-                                                    deleteProduct(item.productId)
-                                                } }/> 
-                                                <FaEdit onClick={()=>{
-                                                    navigate("/admin/edit-product", {
-                                                        state : item //send whole item to edit page by state
-                                                    })
-                                                }} className="text-[20px] text-blue-600"/> 
-                                            </div>
-                                        </td>
-                                        
-                                    </tr>
-                                )
-                            }
-                        )
-                    }
-                </tbody>
-
-            </table>
-
-}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-    )
+      )}
+    </div>
+  );
 }
-
-//useLocation hook is use to read information from another page
