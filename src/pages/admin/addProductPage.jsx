@@ -103,7 +103,7 @@ async function AddProduct(){
 
         axios.post (import.meta.env.VITE_BACKEND_URL+"/api/products", product, {
             headers : {
-                "Authorization" : "Bearer "+token
+                "Authorization" : "Bearer "+ token
             }
         })
         .then((res)=>{
