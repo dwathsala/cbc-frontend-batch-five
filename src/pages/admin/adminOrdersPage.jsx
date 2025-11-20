@@ -20,6 +20,7 @@ export default function AdminOrdersPage() {
                 },
             }).then((res) => {
                 setOrders(res.data);
+                console.log(res.data);
                 setIsLoading(false);
             }
             ).catch((err) => {
