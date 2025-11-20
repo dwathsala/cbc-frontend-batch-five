@@ -28,16 +28,16 @@ export default function AdminProductsPage() {
 
   // Delete Product
   function deleteProduct(productId) {
-    const token = localStorage.getItem("token");
+    const Token = localStorage.getItem("Token");
 
-    if (!token) {
+    if (!Token) {
       toast.error("You are not logged in");
       return;
     }
 
     axios
       .delete(import.meta.env.VITE_BACKEND_URL + "/api/products/" + productId, {
-        headers: { Authorization: "Bearer " + token },
+        headers: { Authorization: "Bearer " + Token },
       })
       .then(() => {
         toast.success("Product deleted successfully");
