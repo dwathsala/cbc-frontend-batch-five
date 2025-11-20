@@ -9,14 +9,14 @@ export default function AdminOrdersPage() {
     
     useEffect(() => {
         if (isLoading) { 
-            const Token = localStorage.getItem("Token");
-            if (!Token) {
+            const token = localStorage.getItem("token");
+            if (!token) {
                 alert("Please login first.");
                 return;
             }
             axios.get(import.meta.env.VITE_API_URL + "/api/orders", {
                 headers: {
-                    Authorization: "Bearer " + Token,
+                    Authorization: "Bearer " + token,
                 },
             }).then((res) => {
                 setOrders(res.data);
