@@ -1,12 +1,14 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
+import Modal from "react-modal"; 
 
 export default function AdminOrdersPage() {
 
     const [orders, setOrders] = useState([]);
     const [status, setStatus] = useState("");
-    const [isLoading, setIsLoading] = useState(true);   
+    const [isLoading, setIsLoading] = useState(true);  
+    const [isModalIsOpen, setIsModalOpen] = useState(false); 
     
     useEffect(() => {
         if (isLoading) { 
@@ -41,6 +43,14 @@ export default function AdminOrdersPage() {
             {isLoading ? (
                 <Loading />
             ) : (
+                <div className="overflow-x-auto">
+                <Modal
+                    isOpen={isModalIsOpen}
+                    onAfterOpen={() => {}}
+                    onRequestClose={() => setIsModalOpen(false)}
+                    contentLabel="Example Modal"
+                ></Modal>
+
                 <table className="w-full border-collapse shadow-lg">
                     <thead>
                         <tr className="bg-accent text-white">
@@ -56,7 +66,10 @@ export default function AdminOrdersPage() {
                     </thead>
                     <tbody>
                         {orders.map((order, index) => (
-                            <tr key={order._id} className={index % 2 === 0 ? "bg-gray-50" : "bg-white hover:bg-blue-50"}>
+                            <tr 
+                            onClick={() => setIsModalOpen(true)}
+                            
+                            key={order._id} className={index % 2 === 0 ? "bg-gray-50" : "bg-white hover:bg-blue-50"}>
                                 <td className="border border-gray-300 px-4 py-3">{order.orderId}</td>
                                 <td className="border border-gray-300 px-4 py-3">{order.name}</td>
                                 <td className="border border-gray-300 px-4 py-3">{order.email}</td>
@@ -81,6 +94,7 @@ export default function AdminOrdersPage() {
                         ))}
                     </tbody>
                 </table>
+                </div>
             )}
         </div>
     )

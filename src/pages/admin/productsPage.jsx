@@ -8,6 +8,7 @@ import { sampleProducts } from "../../assets/sampleData";
 export default function AdminProductsPage() {
   const [products, setProducts] = useState(sampleProducts);
   const [isLoading, setIsLoading] = useState(true);
+  
   const navigate = useNavigate();
 
   // Fetch Products
@@ -69,6 +70,7 @@ export default function AdminProductsPage() {
         <div className="bg-white border border-accent/40 rounded-xl shadow-sm p-4">
           <h1 className="text-2xl font-heading text-accent pb-4">Products List</h1>
 
+          <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead className="bg-accent text-white text-lg">
               <tr>
@@ -131,6 +133,7 @@ export default function AdminProductsPage() {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       )}
     </div>
