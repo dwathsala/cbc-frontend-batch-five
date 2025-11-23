@@ -152,13 +152,23 @@ export default function AdminOrdersPage() {
                   Order Total: ${activeOrder.total.toFixed(2)}
                 </div>
 
-                {/* Close Button */}
-                <button
-                  className="w-full bg-pink-500 text-white py-3 rounded-lg text-lg font-bold hover:bg-pink-600 transition"
-                  onClick={() => setIsModalOpen(false)}
-                >
-                  Close
-                </button>
+                {/* Action Buttons */}
+                <div className="flex gap-4 mt-6">
+                  <button
+                    className="flex-1 bg-gray-300 text-gray-800 py-3 rounded-lg text-lg font-semibold hover:bg-gray-400 transition"
+                    onClick={() => setIsModalOpen(false)}
+                  >
+                    Close
+                  </button>
+
+                  <button
+                    className="flex-1 bg-pink-500 text-white py-3 rounded-lg text-lg font-bold hover:bg-pink-600 transition"
+                    onClick={() => window.print()}
+                  >
+                    Print
+                  </button>
+                </div>
+
               </div>
             )}
           </Modal>
