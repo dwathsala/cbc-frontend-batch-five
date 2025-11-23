@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Loading from "../../components/Loading";
 import Modal from "react-modal";
-import toast from "react-hot-toast";
 
 Modal.setAppElement("#root");
 
@@ -13,51 +12,69 @@ export default function AdminOrdersPage() {
   const [activeOrder, setActiveOrder] = useState(null);
 
   useEffect(() => {
-    if (!isLoading) return;
-
     const token = localStorage.getItem("token");
+
     if (!token) {
-      toast.error("Please login first");
+      alert("Please login first.");
       return;
     }
 
     axios
       .get(import.meta.env.VITE_BACKEND_URL + "/api/orders", {
-        headers: { Authorization: "Bearer " + token },
+        headers: {
+          Authorization: "Bearer " + token,
+        },
       })
       .then((res) => {
         setOrders(res.data);
+        setIsLoading(false);
       })
       .catch((err) => {
-        toast.error(
-          err.response?.data?.message || "Failed to load orders"
-        );
-      })
-      .finally(() => setIsLoading(false));
-  }, [isLoading]);
+        alert("Error fetching orders: " + (err.response?.data?.message || "unknown error"));
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
-    <div className="w-full h-full overflow-y-scroll p-5">
+    <div className="w-full h-full overflow-y-scroll p-6">
       {isLoading ? (
         <Loading />
       ) : (
         <div className="overflow-x-auto">
-          {/* -------- Modal ---------- */}
+          {/* ORDER DETAILS MODAL */}
           <Modal
             isOpen={isModalOpen}
             onRequestClose={() => setIsModalOpen(false)}
-            className="bg-white rounded-xl shadow-2xl max-w-2xl mx-auto mt-20 p-6 outline-none"
-            overlayClassName="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-start"
+            style={{
+              overlay: {
+                backgroundColor: "rgba(0,0,0,0.55)",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "20px",
+                zIndex: 50,
+              },
+              content: {
+                position: "static",
+                padding: "0",
+                borderRadius: "18px",
+                maxWidth: "760px",
+                width: "100%",
+                border: "none",
+                inset: "unset",
+              },
+            }}
           >
             {activeOrder && (
-              <div className="space-y-6">
-                {/* Order Header */}
-                <div className="flex justify-between items-center border-b pb-3">
-                  <h2 className="text-2xl font-bold text-accent">
+              <div className="p-8">
+                {/* Header */}
+                <div className="flex justify-between items-center mb-6">
+                  <h2 className="text-2xl font-bold text-pink-600">
                     Order #{activeOrder.orderId}
                   </h2>
+
                   <span
-                    className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                    className={`px-3 py-1 rounded-full text-sm font-medium ${
                       activeOrder.status === "pending"
                         ? "bg-yellow-200 text-yellow-800"
                         : activeOrder.status === "completed"
@@ -70,10 +87,8 @@ export default function AdminOrdersPage() {
                 </div>
 
                 {/* Customer Info */}
-                <div className="bg-gray-50 p-4 rounded-lg border">
-                  <h3 className="font-semibold text-lg mb-2">
-                    Customer Information
-                  </h3>
+                <div className="border p-4 rounded-lg mb-6">
+                  <h3 className="text-lg font-semibold mb-2">Customer Information</h3>
                   <p><strong>Name:</strong> {activeOrder.name}</p>
                   <p><strong>Email:</strong> {activeOrder.email}</p>
                   <p><strong>Phone:</strong> {activeOrder.phone}</p>
@@ -84,38 +99,45 @@ export default function AdminOrdersPage() {
                   </p>
                 </div>
 
-                {/* Product List */}
-                <div>
-                  <h3 className="font-semibold text-lg mb-2">Ordered Products</h3>
-                  <table className="w-full text-left border-collapse">
+                {/* Ordered Products */}
+                <h3 className="text-lg font-semibold mb-2">Ordered Products</h3>
+
+                {/* Scroll ONLY when many products */}
+                <div className="max-h-64 overflow-y-auto pr-1">
+                  <table className="w-full border-collapse">
                     <thead>
-                      <tr className="bg-gray-100 text-gray-700">
-                        <th className="px-3 py-2">Product</th>
-                        <th className="px-3 py-2">Qty</th>
-                        <th className="px-3 py-2">Price</th>
-                        <th className="px-3 py-2">Total</th>
+                      <tr className="bg-gray-100 text-sm sticky top-0 z-10">
+                        <th className="text-left py-2">Product</th>
+                        <th className="py-2">Qty</th>
+                        <th className="py-2">Price</th>
+                        <th className="py-2">Total</th>
                       </tr>
                     </thead>
+
                     <tbody>
-                      {activeOrder.products.map((item) => (
-                        <tr
-                          key={item._id}
-                          className="border-b hover:bg-gray-50"
-                        >
-                          <td className="px-3 py-2 flex items-center gap-3">
-                            <img
-                              src={item.productInfo.images[0]}
-                              alt=""
-                              className="w-12 h-12 rounded object-cover border"
-                            />
-                            {item.productInfo.name}
+                      {activeOrder.products?.map((product) => (
+                        <tr key={product._id} className="border-b">
+                          <td className="py-3 flex items-center gap-3">
+                            <div className="w-14 h-14 border rounded-md overflow-hidden flex-shrink-0 bg-gray-50">
+                              <img
+                                src={product.productInfo?.images?.[0]}
+                                alt={product.productInfo?.name}
+                                className="w-full h-full object-cover"
+                              />
+                            </div>
+                            <span className="text-sm font-medium">
+                              {product.productInfo?.name}
+                            </span>
                           </td>
-                          <td className="px-3 py-2">{item.quantity}</td>
-                          <td className="px-3 py-2 text-green-600 font-medium">
-                            ${item.productInfo.price.toFixed(2)}
+
+                          <td className="text-center">{product.quantity}</td>
+
+                          <td className="text-center text-green-600 font-semibold">
+                            ${product.productInfo?.price.toFixed(2)}
                           </td>
-                          <td className="px-3 py-2 font-semibold">
-                            ${(item.productInfo.price * item.quantity).toFixed(2)}
+
+                          <td className="text-center font-semibold">
+                            ${(product.quantity * product.productInfo?.price).toFixed(2)}
                           </td>
                         </tr>
                       ))}
@@ -123,15 +145,17 @@ export default function AdminOrdersPage() {
                   </table>
                 </div>
 
-                {/* Total Price */}
-                <div className="text-right font-bold text-xl text-accent border-t pt-3">
+                <hr className="my-5" />
+
+                {/* Order Total */}
+                <div className="text-right text-xl font-bold text-pink-600 mb-5">
                   Order Total: ${activeOrder.total.toFixed(2)}
                 </div>
 
                 {/* Close Button */}
                 <button
+                  className="w-full bg-pink-500 text-white py-3 rounded-lg text-lg font-bold hover:bg-pink-600 transition"
                   onClick={() => setIsModalOpen(false)}
-                  className="w-full bg-accent text-white py-2 rounded-lg hover:opacity-90 transition"
                 >
                   Close
                 </button>
@@ -139,46 +163,55 @@ export default function AdminOrdersPage() {
             )}
           </Modal>
 
-          {/* -------- Orders Table ---------- */}
-          <table className="w-full border-collapse shadow-lg">
+          {/* ORDERS TABLE */}
+          <table className="w-full border-collapse shadow-lg rounded-lg overflow-hidden">
             <thead>
               <tr className="bg-accent text-white">
                 <th className="px-4 py-3 text-left">Order ID</th>
                 <th className="px-4 py-3 text-left">Name</th>
                 <th className="px-4 py-3 text-left">Email</th>
+                <th className="px-4 py-3 text-left">Phone</th>
+                <th className="px-4 py-3 text-left">Address</th>
                 <th className="px-4 py-3 text-left">Total</th>
+                <th className="px-4 py-3 text-left">Date</th>
                 <th className="px-4 py-3 text-left">Status</th>
               </tr>
             </thead>
+
             <tbody>
-              {orders.map((o, index) => (
+              {orders.map((order, index) => (
                 <tr
-                  key={o._id}
-                  className={`cursor-pointer ${
-                    index % 2 === 0 ? "bg-gray-50" : "bg-white"
-                  } hover:bg-blue-50`}
+                  key={order._id}
                   onClick={() => {
-                    setActiveOrder(o);
+                    setActiveOrder(order);
                     setIsModalOpen(true);
                   }}
+                  className={`cursor-pointer hover:bg-pink-50 ${
+                    index % 2 === 0 ? "bg-white" : "bg-gray-50"
+                  }`}
                 >
-                  <td className="px-4 py-3">{o.orderId}</td>
-                  <td className="px-4 py-3">{o.name}</td>
-                  <td className="px-4 py-3">{o.email}</td>
+                  <td className="px-4 py-3">{order.orderId}</td>
+                  <td className="px-4 py-3">{order.name}</td>
+                  <td className="px-4 py-3">{order.email}</td>
+                  <td className="px-4 py-3">{order.phone}</td>
+                  <td className="px-4 py-3">{order.address}</td>
                   <td className="px-4 py-3 font-semibold text-green-600">
-                    ${o.total.toFixed(2)}
+                    ${order.total.toFixed(2)}
+                  </td>
+                  <td className="px-4 py-3">
+                    {new Date(order.date).toLocaleDateString()}
                   </td>
                   <td className="px-4 py-3">
                     <span
                       className={`px-3 py-1 rounded-full text-sm font-medium ${
-                        o.status === "pending"
+                        order.status === "pending"
                           ? "bg-yellow-200 text-yellow-800"
-                          : o.status === "completed"
+                          : order.status === "completed"
                           ? "bg-green-200 text-green-800"
                           : "bg-red-200 text-red-800"
                       }`}
                     >
-                      {o.status}
+                      {order.status}
                     </span>
                   </td>
                 </tr>
