@@ -82,8 +82,19 @@ export default function AdminOrdersPage() {
                         : "bg-red-200 text-red-800"
                     }`}
                   >
-                    {activeOrder.status}
+                    {activeOrder.status.toUpperCase()}
                   </span>
+                  <select onChange={(e) => {
+                    console.log(e.target.value)
+                  }}>
+                    <option selected >Change Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="completed">Completed</option>
+                    <option value="canceled">Canceled</option>
+                    <option value="shipped">Returned</option>
+
+                  </select>
+                  
                 </div>
 
                 {/* Customer Info */}
