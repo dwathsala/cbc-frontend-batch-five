@@ -101,6 +101,20 @@ export default function AdminOrdersPage() {
                           Authorization: "Bearer " + token },
                       }
                     );
+
+                    setIsModalOpen(false);
+                    setIsLoading(true);
+
+                    const res = await axios.get(
+                      import.meta.env.VITE_BACKEND_URL + "/api/orders",
+                      {
+                        headers: {
+                          Authorization: "Bearer " + token,
+                        },
+                      }
+                      );
+                      setOrders(res.data);
+                      setIsLoading(false);
                     
                     }catch(e){
                       toast.error("Failed to update order status")
