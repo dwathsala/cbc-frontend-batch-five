@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Loading from "../../components/loading";
 import Modal from "react-modal";
 
+
 Modal.setAppElement("#root");
 
 export default function AdminOrdersPage() {
@@ -84,8 +85,27 @@ export default function AdminOrdersPage() {
                   >
                     {activeOrder.status.toUpperCase()}
                   </span>
-                  <select onChange={(e) => {
-                    console.log(e.target.value)
+                  <select onChange={async(e) => {
+                    const updatedValue = e.target.value
+                    try{
+                    const token = localStorage.getItem("token");
+                    await axios.put(
+                      import.meta.env.VITE_BACKEND_URL + 
+                      "/api/orders/" + 
+                      activeOrder.orderId + 
+                      "/" + 
+                      updatedValue ,
+                      {},
+                      {
+                        headers: { 
+                          Authorization: "Bearer " + token },
+                      }
+                    );
+                    
+                    }catch(e){
+                      toast.error("Failed to update order status")
+                      console.log(e)
+                    }
                   }}>
                     <option selected >Change Status</option>
                     <option value="pending">Pending</option>
