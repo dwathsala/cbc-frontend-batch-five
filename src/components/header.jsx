@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { BsCart3 } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useState } from "react";
 
 export default function Header(){
-    const [sideDrawerOpen, setSideDrawerOpen] = UserData((state)=>[state.sideDrawerOpen, state.setSideDrawerOpen]);
+    const [sideDrawerOpen, setSideDrawerOpen] = useState(true);
     const navigate = useNavigate();
     console.log("Header component loading....")
     return(
@@ -27,6 +28,22 @@ export default function Header(){
                     <BsCart3 />
                 </Link>
             </div>
+
+            {
+                sideDrawerOpen &&
+                <div className="fixed w-full h-screen bg-[#00000040] flex md:hidden">
+                    <div className="w-[300px] bg-white h-full">
+                        <div className="w-full h-[80px] shadow-2xl flex justify-center items-center">
+                            <img onClick={()=>{
+                                window.location.href="/"
+                            }} src="/logo.png" alt="LOGO" className="w-[80px] h-[80px] object-cover cursor-pointer" />
+                        </div>
+                    
+                    </div>
+                </div>
+            }
+
+
         </header>
     )
 }
