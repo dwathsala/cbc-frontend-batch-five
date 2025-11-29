@@ -2,15 +2,15 @@ import UserData from "./userData";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { BsCart3 } from "react-icons/bs";
-import { FaHamburger } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 
 export default function Header(){
+    const [sideDrawerOpen, setSideDrawerOpen] = UserData((state)=>[state.sideDrawerOpen, state.setSideDrawerOpen]);
     const navigate = useNavigate();
     console.log("Header component loading....")
     return(
-        <header className="w-full h-[80px] shadow-2xl flex">
-            <GiHamburgerMenu/>
+        <header className="w-full h-[80px] shadow-2xl flex justify-center relative">
+            <GiHamburgerMenu className="h-full  text-3xl md:hidden absolute  left-2" />
             <img onClick={()=>{
                 navigate("/")
             }} src="/logo.png" alt="Logo" className="w-[80px] h-[80px] object-cover cursor-pointer" />
@@ -20,9 +20,9 @@ export default function Header(){
                 <Link to="/about" className="text-[20px] font-bold mx-2">About</Link>
                 <Link to="/contact" className="text-[20px] font-bold mx-2">Contact</Link>
 
-            </div>
+            </div>  
 
-            <div className="w-[80px] flex justify-center items-center">
+            <div className="w-[80px] hidden md:flex justify-center items-center">
                 <Link to="/cart" className="text-[50px] font-bold mx-10">
                     <BsCart3 />
                 </Link>
