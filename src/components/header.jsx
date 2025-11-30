@@ -6,12 +6,16 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { useState } from "react";
 
 export default function Header(){
-    const [sideDrawerOpen, setSideDrawerOpen] = useState(true);
+    const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
     const navigate = useNavigate();
     console.log("Header component loading....")
     return(
         <header className="w-full h-[80px] shadow-2xl flex justify-center relative">
-            <GiHamburgerMenu className="h-full  text-3xl md:hidden absolute  left-2" />
+            <GiHamburgerMenu className="h-full  text-3xl md:hidden absolute  left-2" onClick={
+                ()=>{
+                    setSideDrawerOpen(true)
+                }
+            }/>
             <img onClick={()=>{
                 navigate("/")
             }} src="/logo.png" alt="Logo" className="w-[80px] h-[80px] object-cover cursor-pointer" />
@@ -41,6 +45,15 @@ export default function Header(){
                                 window.location.href = "/"
                             }} src="/logo.png" alt="LOGO" className="w-[80px] h-[80px] object-cover cursor-pointer" />
                         </div>
+                        <div className="w-full h-[calc(100%-80px)] flex flex-col items-center gap-2">
+                            <a href="/" className="text-[20px] font-bold mx-2 my-4">Home</a>
+                            <a href="/products" className="text-[20px] font-bold mx-2 my-4">Products</a>
+                            <a href="/about" className="text-[20px] font-bold mx-2 my-4">About</a>
+                            <a href="/contact" className="text-[20px] font-bold mx-2 my-4">Contact</a>
+                            <a href="/cart" className="text-[50px] font-bold mx-10 my-4">
+                                <BsCart3 />
+                            </a>
+                        </div>   
                     
                     </div>
                 </div>
