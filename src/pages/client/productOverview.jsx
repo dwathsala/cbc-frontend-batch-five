@@ -36,8 +36,8 @@ export default function ProductOverview() {
         <>
         {
         status == "success" && ( 
-        <div className="w-full h-full flex flex-row"> 
-            <div className="w-[50%] h-full flex justify-center items-center">
+        <div className="w-full h-full flex flex-col md:flex-row"> 
+            <div className="w-full md:w-[50%] h-full flex justify-center items-center">
                 <ImageSlider images={product.images} />
             </div>  
 
