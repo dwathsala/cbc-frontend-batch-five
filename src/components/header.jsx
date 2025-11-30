@@ -33,9 +33,12 @@ export default function Header(){
                 sideDrawerOpen &&
                 <div className="fixed w-full h-screen bg-[#00000040] flex md:hidden">
                     <div className="w-[300px] bg-white h-full">
-                        <div className="w-full h-[80px] shadow-2xl flex justify-center items-center">
+                        <div className="w-full h-[80px] shadow-2xl flex justify-center items-center relative">
+                            <GiHamburgerMenu className="h-full text-3xl absolute left-2 cursor-pointer" onClick={()=>{
+                                setSideDrawerOpen(false);
+                            }}/>
                             <img onClick={()=>{
-                                window.location.href="/"
+                                window.location.href = "/"
                             }} src="/logo.png" alt="LOGO" className="w-[80px] h-[80px] object-cover cursor-pointer" />
                         </div>
                     
