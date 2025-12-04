@@ -8,10 +8,10 @@ export default function CartPage() {
     
     return (
         <div className="w-full h-full flex flex-col items-center pt-4 relative">
-            <div className="w-[350px] h-[80px] shadow absolute top-1 right-1 flex flex-col justify-center items-center">
+            <div className="z-50 hidden w-[350px] h-[80px] shadow absolute bottom-1 md:top-1 right-1 md:flex flex-col justify-center items-center">
                 <p className="text-2xl text-secondary-text font-bold">Total: 
                     <span className="text-accent font-bold mx-2">
-                        {getTotal().toFixed(2)}
+                        ${getTotal().toFixed(2)}
                     </span>
                 </p>
 
@@ -27,9 +27,9 @@ export default function CartPage() {
             {
                 cart.map((item)=>{
                     return (
-                        <div key={item.productId} className="w-[600px] h-[100px] bg-primary shadow-2xl rounded-tl-3xl rounded-bl-3xl flex flex-row my-2 relative justify-center items-center">
+                        <div key={item.productId} className="w-[70%] md:w-[600px] md:h-[100px] bg-primary shadow-2xl rounded-tl-3xl rounded-bl-3xl flex flex-col md:flex-row my-2 relative justify-center items-center p-4 md:p-0">
                             <img src={item.image} alt={item.name} className="w-[100px] h-[100px] object-cover rounded-3xl"/>
-                            <div className="w-[250px] h-full flex flex-col justify-center pl-4">
+                            <div className="w-[250px] h-full flex flex-col justify-center items-center md:items-start pl-4">
                                 <h1 className="text-xl font-semibold text-secondary-text">{item.name}</h1>
                                 <h1 className=" text-md font-medium text-gray-500">{item.productId}</h1>
 
@@ -58,25 +58,43 @@ export default function CartPage() {
                             </div>
 
                             {/*total*/}
-                            <div className="w-[150px] h-full flex flex-col justify-center items-center">
+                            <div className="w-[150px] h-full flex flex-col justify-center items-center md:items-end md:pr-4">
                                 <span className="text-md font-medium text-gray-500">Total</span>
                                 <span className="text-xl font-bold text-accent">${(item.price * item.qty).toFixed(2)}</span>
                             </div>
 
                             <div>
-                                <button className="absolute top-1 bg-red-600 text-white rounded-full p-2 m-1 right-[-35] cursor-pointer hover:bg-red-700 active:bg-red-600 font-bold"
+                                <button className="absolute bottom-2 right-2 md:top-1 md:bottom-auto md:right-[-35px] bg-red-600 text-white rounded-full p-2 cursor-pointer hover:bg-red-700 active:bg-red-600 font-bold"
                                 onClick={()=>{
                                     removeFromCart(item.productId);
                                     setCart(getCart()); //refresh cart
                                 }}
-                                ><BiTrash/></button>
-                            </div>                            
-
+                                ><BiTrash/>
+                                </button>
+                            </div> 
+                            
                         </div>
                     )
                 }
                 )
             }
+
+            <div className="z-50 md:hidden flex w-full h-[100px] shadow flex-col justify-center items-center py-4">
+                <p className="text-2xl text-secondary-text font-bold">Total: 
+                    <span className="text-accent font-bold mx-2">
+                        ${getTotal().toFixed(2)}
+                    </span>
+                </p>
+
+                <Link to="/checkout" state={
+                    {
+                        cart: cart
+                    }
+                } className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent">
+                    Checkout
+                </Link>
+
+            </div>
         </div>
     );
 }
