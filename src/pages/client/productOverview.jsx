@@ -36,12 +36,12 @@ export default function ProductOverview() {
         <>
         {
         status == "success" && ( 
-        <div className="w-full h-full flex flex-col md:flex-row"> 
+        <div className="w-full min-h-screen flex flex-col md:flex-row py- md:py-8 px-6 md:px-0"> 
             <div className="w-full md:w-[50%] h-full flex justify-center items-center">
                 <ImageSlider images={product.images} />
             </div>  
 
-            <div className="w-[50%] h-full flex justify-center items-center">
+            <div className="w-full md:w-[50%] h-full flex justify-center items-center">
                 <div className="w-[500px] h-[600px] flex flex-col items-center">
                     <h1 className="w-full text-center text-4xl font-semibold text-secondary-text">{product.name}
                         {
@@ -67,18 +67,18 @@ export default function ProductOverview() {
                         </div>
                     }
 
-                    <div className="w-full flex justify-center items-center">
-                        <button className="bg-green-700 text-white px-6 py-3 rounded-full mt-6 hover:bg-accent-dark mx-4 font-bold cursor-pointer hover:bg-green-800 active:bg-green-600" onClick={
+                    <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-2 md:gap-3 mt-3">
+                        <button className="w-full sm:w-auto bg-green-700 text-white px-5 py-2.5 rounded-full hover:bg-accent-dark md:mx-2 font-bold cursor-pointer hover:bg-green-800 active:bg-green-600 text-sm md:text-base" onClick={
                             ()=>{
                                 console.log("Old Cart");
                                 console.log(getCart());
                                 addToCart(product, 1);
                                 console.log("New Cart:");
-                                console.log(getCart());
+                                console.log(getCart()); 
                             }
                         }>Add to Cart</button>
                         
-                        <button className="bg-green-700 text-white px-6 py-3 rounded-full mt-6 hover:bg-accent-dark mx-4 font-bold cursor-pointer  hover:bg-green-800 active:bg-green-600"
+                        <button className="w-full sm:w-auto bg-green-700 text-white px-5 py-2.5 rounded-full hover:bg-accent-dark md:mx-2 font-bold cursor-pointer hover:bg-green-800 active:bg-green-600 text-sm md:text-base"
                         onClick={() => {
                             console.log("Buy Now clicked");
                             console.log("Product:", product); 
