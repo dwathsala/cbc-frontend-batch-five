@@ -22,9 +22,10 @@ export default function ForgetPasswordPage() {
     }
 
     function verfyOtp() { 
+        const otpInNumber = parseInt(otp, 10);
         axios.post(import.meta.env.VITE_BACKEND_URL + "/api/users/reset-password", {
             email: email,
-            otp: otp,
+            otp: otpInNumber,
             newPassword: newPassword,
         }).then((response) => {
             toast.success("Password reset successful!");
@@ -64,10 +65,7 @@ export default function ForgetPasswordPage() {
                     />
                     <button 
                         className="w-full h-12 bg-accent text-white font-bold rounded-full hover:bg-pink-500 transition-colors duration-200 active:scale-95" 
-                        onClick={()=>{
-                            // Handle password reset logic
-                            console.log("Password reset submitted");
-                        }}
+                        onClick={verfyOtp}
                     >
                         Reset Password
                     </button>
