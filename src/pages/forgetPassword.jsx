@@ -65,7 +65,7 @@ export default function ForgetPasswordPage() {
                     />
                     <button 
                         className="w-full h-12 bg-accent text-white font-bold rounded-full hover:bg-pink-500 transition-colors duration-200 active:scale-95" 
-                        onClick={verfyOtp}
+                        onClick={verfyOtp }
                     >
                         Reset Password
                     </button>
