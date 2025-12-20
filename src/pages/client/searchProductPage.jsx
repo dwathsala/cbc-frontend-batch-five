@@ -2,12 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import ProductCard from "../../components/productCard";
 import Loading from "../../components/loading";
-
 export default function SearchProductPage(){
     const [products, setProducts] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [query, setQuery] = useState("");
-
   /*useEffect(
         ()=>{
             if(isLoading == true){
@@ -21,7 +19,6 @@ export default function SearchProductPage(){
             }
         },[isLoading]
     ) */
-
     useEffect(() => {
         setLoading(true); // Start loading
         
@@ -42,7 +39,6 @@ export default function SearchProductPage(){
             });
             
     }, [query]);
-
     return(
         //flex-wrap is use when there is not enough space in a row, it will go to the next row
         <div className="w-full h-full flex flex-wrap justify-center items-center "> 
@@ -61,13 +57,16 @@ export default function SearchProductPage(){
                 {
                     isLoading?(
                         <Loading/>
-                    ):
-                    products.map(
-                        (product) => {
-                            return(
-                                <ProductCard key={product.productId} product={product}/>
-                            )
-                        }
+                    ): products.length > 0 ? (
+                        products.map(
+                            (product) => {
+                                return(
+                                    <ProductCard key={product.productId} product={product}/>
+                                )
+                            }
+                        )
+                    ) : (
+                        <p className="text-gray-500 text-xl">Can't Find the product</p>
                     )
                 }
                 
