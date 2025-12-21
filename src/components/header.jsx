@@ -8,6 +8,8 @@ import { useState } from "react";
 export default function Header(){
     const [sideDrawerOpen, setSideDrawerOpen] = useState(false);
     const navigate = useNavigate();
+    const token = localStorage.getItem("token"); 
+
     console.log("Header component loading....")
     return(
         <header className="w-full h-[80px] shadow-2xl flex justify-center relative">
@@ -29,7 +31,19 @@ export default function Header(){
             </div>  
 
             <div className="w-[80px] hidden md:flex justify-center items-center">
-                <Link to="/cart" className="text-[50px] font-bold mx-10">
+                {
+                     token==null ?
+                    <Link to="/login" className="text-[20px] font-bold mx-2">Login</Link>
+                    :
+                    <button className="text-[20px] font-bold " onClick={()=>{
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("user");
+                        window.location.href = "/";
+                        //navigate("/login");
+                    }}>
+                        Logout</button>
+                }
+                <Link to="/cart" className="text-[50px] font-bold mr-50">
                     <BsCart3 />
                 </Link>
             </div>
