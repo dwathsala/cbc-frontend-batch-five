@@ -3,9 +3,9 @@
 @import "tailwindcss";
 
 @theme{
-    --color-primary:#FBF8F1;
-    --color-accent:#D988B9;
-    --color-secondary-text:#44444E;
+    --color-primary:#FFD3D5;
+    --color-accent:#92487A;
+    --color-secondary-text:#4A4947;
     --font-fancy: 'Exile', sans-serif;
     --font-heading: 'BBH Sans Hegarty', sans-serif;
 }
