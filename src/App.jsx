@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Route, Routes,Navigate } from 'react-router-dom'
 import './App.css'
 import Header from './components/header'
 import ProductCard from './components/productCard'
