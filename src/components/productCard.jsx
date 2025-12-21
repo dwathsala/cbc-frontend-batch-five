@@ -77,7 +77,7 @@ export default function ProductCard({ product }) {
         </div>
 
         {/* Optional CTA Button */}
-        <button className="mt-4 w-full bg-blue-600 text-white py-2 rounded-xl font-semibold hover:bg-blue-700 transition-colors duration-300">
+        <button className="mt-4 w-full bg-[#92487A] text-white py-2 rounded-xl font-semibold hover:bg-[#7a3d65] transition-colors duration-300">
           Add to Cart
         </button>
       </div>

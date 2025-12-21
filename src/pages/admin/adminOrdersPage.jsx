@@ -70,7 +70,7 @@ export default function AdminOrdersPage() {
               <div className="p-8">
                 {/* Header */}
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold text-pink-600">
+                  <h2 className="text-2xl font-bold text-[#92487A]">
                     Order #{activeOrder.orderId}
                   </h2>
 
@@ -193,7 +193,7 @@ export default function AdminOrdersPage() {
                 <hr className="my-5" />
 
                 {/* Order Total */}
-                <div className="text-right text-xl font-bold text-pink-600 mb-5">
+                <div className="text-right text-xl font-bold text-[#92487A] mb-5">
                   Order Total: ${activeOrder.total.toFixed(2)}
                 </div>
 
@@ -207,7 +207,7 @@ export default function AdminOrdersPage() {
                   </button>
 
                   <button
-                    className="flex-1 bg-pink-500 text-white py-3 rounded-lg text-lg font-bold hover:bg-pink-600 transition"
+                    className="flex-1 bg-[#92487A] text-white py-3 rounded-lg text-lg font-bold hover:bg-[#7a3d65] transition"
                     onClick={() => window.print()}
                   >
                     Print

@@ -44,14 +44,14 @@ export default function CartPage() {
                             </div>
 
                             <div className="w-[100px] h-full flex flex-row justify-center items-center">
-                                <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent"
+                                <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-[#7a3d65] cursor-pointer active:bg-accent"
                                 onClick={()=>{
                                     addToCart(item, -1);
                                     setCart(getCart());
                                 }}
                                 >-</button>
                                 <span className="mx-4 text-lg font-semibold text-secondary-text">{item.qty}</span>
-                                <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-pink-900 cursor-pointer active:bg-accent" onClick={() =>{
+                                <button className="w-8 h-8 bg-accent text-white font-bold rounded-full hover:bg-[#7a3d65] cursor-pointer active:bg-accent" onClick={() =>{
                                     addToCart(item, 1); //add one more item to the cart
                                     setCart(getCart()); //update the cart state to reflect the changes
                                 } }>+</button>
@@ -90,7 +90,7 @@ export default function CartPage() {
                     {
                         cart: cart
                     }
-                } className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-pink-900 cursor-pointer active:bg-accent">
+                } className="w-[150px] h-[40px] bg-accent text-white font-bold rounded-full flex flex-row justify-center items-center hover:bg-[#7a3d65] cursor-pointer active:bg-accent">
                     Checkout
                 </Link>
 
